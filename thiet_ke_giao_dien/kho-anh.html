@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="vi">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Album Ảnh · Bản thiết kế</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #fff;
+    --text: #17171a;
+    --muted: #626268;
+    --wash: #f2f2f5;
+    --glass: #fffffff0;
+    --blue: #005bce;
+    --line: #85858b36
+  }
+
+  @media(prefers-color-scheme:dark) {
+    :root {
+      --bg: #111113;
+      --text: #f8f8fa;
+      --muted: #aeaeb5;
+      --wash: #262629;
+      --glass: #111113ed;
+      --blue: #80b7ff
+    }
+  }
+
+  * {
+    box-sizing: border-box
+  }
+
+  body {
+    margin: 0;
+    background: var(--wash);
+    color: var(--text);
+    font: 16px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif
+  }
+
+  button {
+    font: inherit;
+    color: var(--text);
+    border: 0;
+    cursor: pointer;
+    background: var(--wash);
+    min-height: 44px
+  }
+
+  button:focus-visible {
+    outline: 3px solid var(--blue);
+    outline-offset: -3px
+  }
+
+  button[aria-pressed=true] {
+    color: var(--blue);
+    background: var(--bg);
+    box-shadow: 0 1px 4px #0002
+  }
+
+  button:disabled {
+    opacity: .45;
+    cursor: default
+  }
+
+  svg {
+    width: 21px;
+    height: 21px;
+    vertical-align: middle;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.65;
+    stroke-linecap: round;
+    stroke-linejoin: round
+  }
+
+  .app {
+    max-width: 680px;
+    min-height: 100dvh;
+    margin: auto;
+    background: var(--bg);
+    padding-bottom: 98px
+  }
+
+  .top {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    padding: max(13px, env(safe-area-inset-top)) 16px 12px;
+    background: var(--glass);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--line)
+  }
+
+  .top-row {
+    display: flex;
+    align-items: center;
+    gap: 8px
+  }
+
+  h1 {
+    font-size: clamp(29px, 7vw, 37px);
+    letter-spacing: -.045em;
+    margin: 0 auto 0 0
+  }
+
+  .pill {
+    border-radius: 999px;
+    padding: 0 15px;
+    font-weight: 600
+  }
+
+  .round {
+    border-radius: 50%;
+    width: 44px;
+    flex: none;
+    display: inline-grid;
+    place-items: center
+  }
+
+  .hint {
+    margin: 5px 0 0;
+    font-size: 13px;
+    color: var(--muted)
+  }
+
+  .section {
+    margin: 0 0 17px
+  }
+
+  .section h2 {
+    margin: 17px 16px 8px;
+    font-size: 17px
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2px
+  }
+
+  .tile {
+    position: relative;
+    padding: 0;
+    aspect-ratio: 1;
+    overflow: hidden
+  }
+
+  .tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block
+  }
+
+  .tile .mark,
+  .tile .video {
+    position: absolute;
+    bottom: 7px;
+    color: #fff;
+    background: #0009;
+    min-width: 24px;
+    border-radius: 99px;
+    padding: 3px 6px;
+    font-size: 12px
+  }
+
+  .mark {
+    right: 7px
+  }
+
+  .video {
+    left: 7px
+  }
+
+  .tile[aria-pressed=true] img {
+    opacity: .72
+  }
+
+  .tile[aria-pressed=true] .mark {
+    background: #0056c5;
+    color: white
+  }
+
+  .nav {
+    position: fixed;
+    z-index: 3;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4px;
+    padding: 5px;
+    border-radius: 28px;
+    background: var(--glass);
+    backdrop-filter: blur(18px);
+    border: 1px solid var(--line);
+    box-shadow: 0 5px 22px #0002
+  }
+
+  .nav button {
+    min-width: 83px;
+    min-height: 50px;
+    display: grid;
+    place-items: center;
+    padding: 4px 10px;
+    gap: 2px;
+    border-radius: 22px;
+    background: transparent;
+    white-space: nowrap;
+    font-size: 12px;
+    font-weight: 600
+  }
+
+  .nav button[aria-pressed=true] {
+    background: var(--wash)
+  }
+
+  .rows {
+    margin: 18px 16px;
+    background: var(--wash);
+    border-radius: 18px;
+    padding: 0 15px
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 60px;
+    gap: 12px
+  }
+
+  .row+.row {
+    border-top: 1px solid var(--line)
+  }
+
+  .row small {
+    color: var(--muted)
+  }
+
+  #viewer {
+    width: min(100%, 680px);
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    border: 0;
+    padding: 0;
+    background: #111;
+    color: #fff
+  }
+
+  #viewer::backdrop {
+    background: #000b
+  }
+
+  .viewer-layout {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    height: 100%
+  }
+
+  .viewer-bar,
+  .viewer-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 12px 15px
+  }
+
+  .viewer-bar {
+    padding-top: max(12px, env(safe-area-inset-top))
+  }
+
+  .viewer-bar h2 {
+    font-size: 16px;
+    text-align: center;
+    margin: 0
+  }
+
+  .viewer-actions {
+    justify-content: center;
+    padding-bottom: max(14px, env(safe-area-inset-bottom))
+  }
+
+  #viewer button {
+    background: #29292d;
+    color: #fff
+  }
+
+  .stage {
+    display: grid;
+    place-items: center;
+    min-height: 0
+  }
+
+  .stage img {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    object-fit: contain
+  }
+
+  .sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%)
+  }
+
+  [hidden] {
+    display: none !important
+  }
+</style>
+
+<body>
+  <div class="app">
+    <header class="top">
+      <div class="top-row">
+        <h1 id="title">Album Ảnh</h1><button id="select" class="pill" aria-pressed="false">Chọn</button>
+      </div>
+      <p class="hint" id="hint">Thiết kế minh họa · 12 mục</p>
+    </header>
+    <main id="content" aria-label="Nội dung"></main>
+    <nav class="nav" aria-label="Điều hướng"></nav>
+  </div>
+  <dialog id="viewer" aria-labelledby="mediaTitle">
+    <div class="viewer-layout">
+      <header class="viewer-bar"><button id="close" class="round" aria-label="Đóng trình xem"></button>
+        <h2 id="mediaTitle"></h2><span id="position"></span>
+      </header>
+      <div class="stage"><img id="large" alt=""></div>
+      <footer class="viewer-actions"><button id="prev" class="round" aria-label="Ảnh trước"></button><button id="next"
+          class="round" aria-label="Ảnh sau"></button></footer>
+    </div>
+  </dialog>
+  <script>
+    const $ = s => document.querySelector(s);
+    const icons = { library: '<rect x="3" y="4" width="18" height="16" rx="3"/><path d="m4 16 5-5 4 4 3-3 4 4"/><circle cx="15.5" cy="8.5" r="1"/>', albums: '<rect x="6" y="6" width="14" height="14" rx="3"/><path d="M3 16V6a3 3 0 0 1 3-3h10m-7 12 3-3 4 4"/>', cloud: '<path d="M6 18a4 4 0 0 1-1-8 7 7 0 0 1 13-1 4.5 4.5 0 0 1 0 9z"/>', back: '<path d="m15 5-7 7 7 7"/>', next: '<path d="m9 5 7 7-7 7"/>', close: '<path d="m6 6 12 12M18 6 6 18"/>' };
+    const icon = name => `<svg viewBox="0 0 24 24" aria-hidden="true">${icons[name]}</svg>`;
+    const images = [['Sớm bên hồ', '#f4cbb4', '#58717e'], ['Rừng sau mưa', '#d3ded0', '#436853'], ['Đồi cát', '#f5d795', '#a85c48'], ['Biển lặng', '#c5e4eb', '#346378'], ['Chiều trên núi', '#e4c8e9', '#624f75'], ['Mùa thu', '#f5ce87', '#805c41'], ['Bầu trời tím', '#e1c4dd', '#474f86'], ['Ven bờ', '#d9e2a3', '#447368'], ['Nắng qua đồi', '#fce0b5', '#8b7067'], ['Mây thấp', '#c4d8de', '#4f6672'], ['Chân trời', '#f8bfae', '#785068'], ['Đảo xa', '#9ed2d3', '#426c6d']];
+    const imageURL = i => { const [, sky, land] = images[i], x = 60 + (i * 41) % 230, y = 45 + (i * 17) % 55; return 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 280"><defs><linearGradient id="g" x2="0" y2="1"><stop stop-color="${sky}"/><stop offset="1" stop-color="#fff3d5"/></linearGradient></defs><path fill="url(#g)" d="M0 0h360v280H0z"/><circle fill="#fff4ce" cx="${x}" cy="${y}" r="${20 + i % 4 * 4}"/><path fill="${land}" opacity=".55" d="M0 170 75 ${85 + i * 5} 150 165 240 ${74 + i * 4} 360 160v120H0z"/><path fill="${land}" d="M0 202Q65 101 143 193T286 180L360 142v138H0z"/><path fill="#081e2e" opacity=".25" d="M0 245Q88 ${185 + i * 3} 177 242T360 220v60H0z"/></svg>`); };
+    let tab = 0, picking = false, current = 0, start = null; const picked = new Set(), viewer = $('#viewer');
+    const tabs = [['Thư viện', 'library'], ['Album', 'albums'], ['Kho', 'cloud']];
+    function render() {
+      $('.nav').innerHTML = tabs.map(([label, symbol], i) => `<button aria-pressed="${tab === i}" data-tab="${i}">${icon(symbol)}${label}</button>`).join('');
+      $('#title').textContent = ['Kho Ảnh', 'Album', 'Kho lưu trữ'][tab]; $('#select').hidden = tab !== 0;
+      $('#select').textContent = picking ? 'Xong' : 'Chọn'; $('#select').setAttribute('aria-pressed', picking);
+      $('#hint').textContent = picking ? `Đã chọn ${picked.size} mục` : 'Thiết kế minh họa · Không tải ảnh thật';
+      $('#content').innerHTML = tab === 0 ? ['Hôm nay', 'Hôm qua'].map((day, g) => `<section class="section"><h2>${day}</h2><div class="grid">${images.slice(g * 6, g * 6 + 6).map(([name], j) => { const i = g * 6 + j; return `<button class="tile" data-image="${i}" aria-label="${name}${i === 3 || i === 9 ? ', video minh họa' : ''}" ${picking ? `aria-pressed="${picked.has(i)}"` : ''}><img src="${imageURL(i)}" alt="">${i === 3 || i === 9 ? '<span class="video" aria-hidden="true">▶</span>' : ''}${picking ? `<span class="mark" aria-hidden="true">${picked.has(i) ? '✓' : '○'}</span>` : ''}</button>`; }).join('')}</div></section>`).join('') : `<div class="rows">${(tab === 1 ? [['Gần đây', '12 mục mẫu'], ['Video', '2 mục mẫu']] : [['Google Drive', 'Chưa kết nối'], ['Dropbox', 'Chưa kết nối'], ['Filen', 'Chưa kết nối']]).map(([title, status]) => `<div class="row"><strong>${title}</strong><small>${status}</small></div>`).join('')}</div>`;
+    }
+    function show(i) { current = i; $('#mediaTitle').textContent = images[i][0]; $('#large').src = imageURL(i); $('#large').alt = images[i][0]; $('#position').textContent = `${i + 1}/${images.length}`; $('#prev').disabled = i === 0; $('#next').disabled = i === images.length - 1; if (!viewer.open) viewer.showModal(); }
+    function move(offset) { if (viewer.open && current + offset >= 0 && current + offset < images.length) show(current + offset); }
+    $('.nav').onclick = e => { const button = e.target.closest('[data-tab]'); if (button) { tab = +button.dataset.tab; picking = false; picked.clear(); render(); $('.nav [aria-pressed=true]').focus(); } };
+    $('#select').onclick = () => { picking = !picking; if (!picking) picked.clear(); render(); };
+    $('#content').onclick = e => { const button = e.target.closest('[data-image]'); if (!button) return; const i = +button.dataset.image; if (!picking) { show(i); return; } if (picked.has(i)) picked.delete(i); else picked.add(i); render(); $(`[data-image="${i}"]`).focus(); };
+    for (const [id, name] of [['close', 'close'], ['prev', 'back'], ['next', 'next']]) $('#' + id).innerHTML = icon(name);
+    $('#close').onclick = () => viewer.close(); $('#prev').onclick = () => move(-1); $('#next').onclick = () => move(1);
+    viewer.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') move(-1); if (e.key === 'ArrowRight') move(1); });
+    $('.stage').addEventListener('touchstart', e => { start = e.changedTouches[0].clientX; }, { passive: true });
+    $('.stage').addEventListener('touchend', e => { const change = e.changedTouches[0].clientX - start; if (start !== null && Math.abs(change) > 45) move(change < 0 ? 1 : -1); start = null; }, { passive: true });
+    render();
+  </script>
+</body>
+
+</html>

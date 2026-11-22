@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Kho Ảnh</string>
+    <string name="title_activity_main">Kho Ảnh</string>
+    <string name="package_name">com.vaultphotos.mobile</string>
+    <string name="custom_url_scheme">com.vaultphotos.mobile</string>
+</resources>

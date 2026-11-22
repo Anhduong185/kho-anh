@@ -1,0 +1,71 @@
+name: Build iOS IPA (Unsigned for Sideloadly / AltStore / Feather / TrollStore)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+    tags:
+      - 'v*'
+
+jobs:
+  build-ipa:
+    name: Build Unsigned iOS IPA on macOS Xcode
+    runs-on: macos-15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Shared & Web PWA (Production)
+        run: |
+          npm run build --workspace=packages/shared
+          npm run build --workspace=apps/web
+
+      - name: Sync Capacitor iOS project
+        working-directory: apps/web
+        run: npx cap sync ios
+
+      - name: Install CocoaPods dependencies
+        working-directory: apps/web/ios/App
+        run: pod install --repo-update
+
+      - name: Compile Release App.app (Unsigned)
+        working-directory: apps/web/ios/App
+        run: |
+          xcodebuild \
+            -workspace App.xcworkspace \
+            -scheme App \
+            -configuration Release \
+            -sdk iphoneos \
+            -derivedDataPath build \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO \
+            AD_HOC_CODE_SIGNING_ALLOWED=YES \
+            clean build
+
+      - name: Package Payload into .ipa
+        working-directory: apps/web/ios/App
+        run: |
+          mkdir -p Payload
+          cp -R build/Build/Products/Release-iphoneos/App.app Payload/App.app
+          zip -qry ../../../../vault-photos-v1.0.2-ios-unsigned.ipa Payload
+          ls -lh ../../../../vault-photos-v1.0.2-ios-unsigned.ipa
+
+      - name: Upload .ipa Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vault-photos-v1.0.2-ios-unsigned-ipa
+          path: vault-photos-v1.0.2-ios-unsigned.ipa
+          retention-days: 30

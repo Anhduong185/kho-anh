@@ -1,0 +1,19 @@
+{
+  "name": "smb-e2e",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "playwright test",
+    "test:tier1": "playwright test tests/tier1-feature-coverage.spec.ts",
+    "test:tier2": "playwright test tests/tier2-boundary-corner.spec.ts",
+    "test:tier3": "playwright test tests/tier3-cross-feature.spec.ts",
+    "test:tier4": "playwright test tests/tier4-real-world.spec.ts"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.51.1",
+    "@types/node": "^22.13.10",
+    "typescript": "^5.8.2"
+  }
+}

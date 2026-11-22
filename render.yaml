@@ -1,0 +1,53 @@
+services:
+  - type: web
+    name: secure-media-backup-api
+    runtime: docker
+    dockerfilePath: ./infrastructure/deploy/Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "3001"
+      - key: HOST
+        value: 0.0.0.0
+      - key: DATABASE_URL
+        sync: false # Paste Neon PostgreSQL connection string (postgresql://...?sslmode=require)
+      - key: CORS_ORIGINS
+        sync: false # Paste your Cloudflare Pages URL (e.g. https://vault-photos.pages.dev)
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: STORAGE_CONFIG_KEY
+        generateValue: true
+      - key: STORAGE_PRIMARY_TYPE
+        value: s3
+      - key: S3_PRIMARY_ENDPOINT
+        sync: false # Cloudflare R2 or Backblaze B2 S3 endpoint
+      - key: S3_PRIMARY_REGION
+        value: auto
+      - key: S3_PRIMARY_BUCKET
+        sync: false
+      - key: S3_PRIMARY_ACCESS_KEY_ID
+        sync: false
+      - key: S3_PRIMARY_SECRET_ACCESS_KEY
+        sync: false
+      - key: S3_SECONDARY_ENDPOINT
+        sync: false # Optional Copy 2 (e.g. Backblaze B2)
+      - key: S3_SECONDARY_BUCKET
+        sync: false
+      - key: S3_SECONDARY_ACCESS_KEY_ID
+        sync: false
+      - key: S3_SECONDARY_SECRET_ACCESS_KEY
+        sync: false
+      - key: S3_OFFSITE_ENDPOINT
+        sync: false # Optional Copy 3 (e.g. Oracle Cloud Object Storage S3 API)
+      - key: S3_OFFSITE_BUCKET
+        sync: false
+      - key: S3_OFFSITE_ACCESS_KEY_ID
+        sync: false
+      - key: S3_OFFSITE_SECRET_ACCESS_KEY
+        sync: false

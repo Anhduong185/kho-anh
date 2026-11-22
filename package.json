@@ -1,0 +1,22 @@
+{
+  "name": "secure-media-backup",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Self-hosted & free-cloud secure photo/video backup platform (100% original files, multi-replica, SSE/E2EE)",
+  "workspaces": [
+    "packages/shared",
+    "backend",
+    "apps/web",
+    "apps/worker"
+  ],
+  "scripts": {
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:web": "npm run dev --workspace=apps/web",
+    "build": "npm run build --workspace=packages/shared && npm run build --workspace=backend && npm run build --workspace=apps/web && npm run build --workspace=apps/worker",
+    "test": "npm run build --workspace=packages/shared && npm run test --workspace=backend && npm run test --workspace=apps/worker",
+    "typecheck": "npm run build --workspace=packages/shared && npm run typecheck --workspace=packages/shared && npm run typecheck --workspace=backend && npm run typecheck --workspace=apps/web && npm run typecheck --workspace=apps/worker"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

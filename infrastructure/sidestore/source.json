@@ -1,0 +1,36 @@
+{
+  "name": "Vault Photos Private Source",
+  "identifier": "com.vaultphotos.sidestore.source",
+  "subtitle": "Kênh phân phối bản dựng .ipa nội bộ cho SideStore trên iPhone",
+  "description": "Host file JSON này trên GitHub Pages hoặc Cloudflare Pages để SideStore trên iPhone tự nhận bản cập nhật .ipa mới.",
+  "apps": [
+    {
+      "name": "Vault Photos",
+      "bundleIdentifier": "com.vaultphotos.mobile",
+      "developerName": "Self-Hosted Vault",
+      "subtitle": "Sao lưu ảnh & video nguyên bản 100% qua Wi-Fi",
+      "localizedDescription": "Ứng dụng sao lưu ảnh và video một chiều, giữ nguyên file gốc, hỗ trợ mã hóa theo tài khoản (Server-side / E2EE) và 3 bản sao độc lập.",
+      "tintColor": "#3b82f6",
+      "category": "utilities",
+      "versions": [
+        {
+          "version": "1.0.0",
+          "date": "2026-11-21",
+          "localizedDescription": "Bản phát hành nền tảng hỗ trợ sao lưu Wi-Fi-only, resumable upload và xác minh SHA-256.",
+          "downloadURL": "https://YOUR_GITHUB_OR_CLOUDFLARE_URL/releases/vault-photos-1.0.0.ipa",
+          "size": 25000000,
+          "minOSVersion": "15.0"
+        }
+      ],
+      "appPermissions": {
+        "entitlements": [],
+        "privacy": {
+          "NSPhotoLibraryUsageDescription": "Cần quyền đọc thư viện Photos để sao lưu nguyên bản 100% ảnh và video của bạn.",
+          "NSPhotoLibraryAddUsageDescription": "Cần quyền lưu lại ảnh và video gốc khi bạn chọn khôi phục về máy.",
+          "NSFaceIDUsageDescription": "Sử dụng Face ID để mở khóa ứng dụng Vault Photos."
+        }
+      }
+    }
+  ],
+  "news": []
+}

@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "name": "Vault Photos",
+    "slug": "vault-photos",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "bundleIdentifier": "com.vaultphotos.mobile",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Đọc thư viện ảnh/video gốc để sao lưu bảo mật qua Wi-Fi.",
+        "NSPhotoLibraryAddUsageDescription": "Lưu ảnh/video gốc về thư viện Photos khi khôi phục.",
+        "NSFaceIDUsageDescription": "Dùng Face ID của hệ điều hành để khóa và mở khóa ứng dụng.",
+        "UIBackgroundModes": ["fetch", "processing"],
+        "BGTaskSchedulerPermittedIdentifiers": ["com.vaultphotos.mobile.wifi-backup"]
+      }
+    },
+    "android": {
+      "package": "com.vaultphotos.mobile",
+      "permissions": [
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.READ_MEDIA_VIDEO",
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.USE_BIOMETRIC"
+      ]
+    },
+    "extra": {
+      "uploadNetworkPolicy": "wifi_only",
+      "gpsMapEnabled": false,
+      "searchEnabled": false,
+      "sharingEnabled": false
+    }
+  }
+}
