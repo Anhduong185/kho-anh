@@ -1028,7 +1028,7 @@ export async function handleAdminAndNotificationRoutes(
       response_type: 'code',
       scope: 'https://www.googleapis.com/auth/drive.file',
       access_type: 'offline',
-      prompt: 'consent',
+      prompt: 'select_account consent',
       include_granted_scopes: 'true',
       state
     });
