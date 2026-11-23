@@ -21,14 +21,13 @@ apps/web/android/build/
 apps/web/ios/App/Pods/
 apps/web/ios/App/build/
 apps/web/public/downloads/*.apk
-releases/
+releases/*.exe
+releases/*.zip
+releases/jitterbugpair/
 e2e/test-results/
 e2e/playwright-report/
-scratch_*
-make_deploy.py
 
 # OS & Editor
 .DS_Store
 Thumbs.db
-.vscode/
 .idea/
